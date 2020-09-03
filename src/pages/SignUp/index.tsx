@@ -15,7 +15,7 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { Container, Content, AnimatedContainer, Background } from './styles';
 
-const SignIn: React.FC = () => {
+const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
   const { addToast } = useToast();
@@ -106,4 +106,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
