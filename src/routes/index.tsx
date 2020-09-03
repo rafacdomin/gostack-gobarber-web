@@ -1,13 +1,21 @@
 import React from 'react';
-import { useAuth } from '../contexts/auth';
+import { BrowserRouter, Switch } from 'react-router-dom';
+import Route from './Route';
 
-import AppRoutes from './app.routes';
-import AuthRoutes from './auth.routes';
+import SignIn from '../pages/SignIn';
+import SignUp from '../pages/SignUp';
+import Dashboard from '../pages/Dashboard';
 
 const Routes: React.FC = () => {
-  const signed = !!useAuth().user;
-
-  return signed ? <AppRoutes /> : <AuthRoutes />;
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact component={SignIn} />
+        <Route path="/register" component={SignUp} />
+        <Route path="/dashboard" component={Dashboard} isPrivate />
+      </Switch>
+    </BrowserRouter>
+  );
 };
 
 export default Routes;
