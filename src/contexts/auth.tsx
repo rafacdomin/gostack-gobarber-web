@@ -1,8 +1,14 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import api from '../services/api';
 
+interface UserProps {
+  id: string;
+  avatar_url: string;
+  name: string;
+}
+
 interface AuthContextData {
-  user: object | null;
+  user: UserProps | null;
   Login(userData: Request): Promise<void>;
   Logout(): void;
 }
@@ -15,7 +21,7 @@ interface Request {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<object | null>(() => {
+  const [user, setUser] = useState<UserProps | null>(() => {
     const storagedUser = sessionStorage.getItem('@GoBarber:user');
     const storagedToken = sessionStorage.getItem('@GoBarber:token');
 
@@ -43,6 +49,9 @@ export const AuthProvider: React.FC = ({ children }) => {
   const Logout = useCallback(() => {
     setUser(null);
     api.defaults.headers.Authorization = '';
+
+    sessionStorage.removeItem('@GoBarber:user');
+    sessionStorage.removeItem('@GoBarber:token');
   }, []);
 
   return (
