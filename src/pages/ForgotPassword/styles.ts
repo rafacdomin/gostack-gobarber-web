@@ -4,7 +4,7 @@ import { shade } from 'polished';
 import singInBG from '../../assets/sign-in-background.png';
 
 export const Container = styled.div`
-  height: 100vh;
+  height: 100%;
 
   display: flex;
   align-items: stretch;

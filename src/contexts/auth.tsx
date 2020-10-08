@@ -5,12 +5,14 @@ interface UserProps {
   id: string;
   avatar_url: string;
   name: string;
+  email: string;
 }
 
 interface AuthContextData {
   user: UserProps | null;
   Login(userData: Request): Promise<void>;
   Logout(): void;
+  updateUser(data: UserProps): void;
 }
 
 interface Request {
@@ -54,8 +56,14 @@ export const AuthProvider: React.FC = ({ children }) => {
     sessionStorage.removeItem('@GoBarber:token');
   }, []);
 
+  const updateUser = useCallback((data: UserProps) => {
+    setUser(data);
+
+    sessionStorage.setItem('@GoBarber:user', JSON.stringify(data));
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user: user, Login, Logout }}>
+    <AuthContext.Provider value={{ user: user, Login, Logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );
